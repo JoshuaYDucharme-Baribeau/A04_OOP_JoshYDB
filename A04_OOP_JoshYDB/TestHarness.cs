@@ -24,9 +24,21 @@ namespace A04_OOP_JoshYDB
             //using a list of methods to run them in a loop and keep the test harness clean
             //had the idea and searched it, learned how from: https://stackoverflow.com/questions/23437970/how-to-create-a-list-of-methods-then-execute-them
             List<Action> tests_to_run = new List<Action>();
+            //add all the test methods to the list of Actions (methods) that will be run
             tests_to_run.Add(Test00);
 
+            //get the amount of tests that wil run
             int max_tests = tests_to_run.Count; 
+            
+            //instantiate the classes that will manage collections that will be used across all tests
+                //instantiate account ledger, where new accounts will be added
+            //AccountLedger all_accounts = new AccountLedger();
+
+                //instantiate transactionledger, where transactions are stored
+            //TransactionLedger all_transactions = new TransactionLedger();
+
+
+            
             //begin the first test
             UserInterface.DenoteNewTest(next_test_msg:"TEST 1 BEGINS: Create a savings account");
             for(int test_counter = 0; test_counter < max_tests; test_counter++)

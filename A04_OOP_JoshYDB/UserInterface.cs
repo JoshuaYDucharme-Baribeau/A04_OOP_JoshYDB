@@ -29,6 +29,7 @@ namespace A04_OOP_JoshYDB
             Console.WriteLine("\n\n");
         }
 
+        //consider overriding a toString like the demo example
         internal static void show_acct_details(Account acct_shown)
         {
             Console.WriteLine($"Account ID:\t\t{acct_shown.AccountID}");
@@ -38,6 +39,7 @@ namespace A04_OOP_JoshYDB
         }
         
         
+        //consider overriding a toString like the demo example
         //overloaded method for a savings account is unsafe since it is also the parent, changed method name for specifically savings account
         internal static void show_Sav_acct_details(SavingsAccount acct_shown)
         {
