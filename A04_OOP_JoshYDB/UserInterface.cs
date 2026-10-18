@@ -16,16 +16,16 @@ namespace A04_OOP_JoshYDB
         //default param is empty in case the first test was run, second default is if it was the last test
         internal static void DenoteNewTest(string prev_test_msg = "BEGGINING OF TEST HARNESS", string next_test_msg = "ALL TESTS COMPLETE")
         {
-
             Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 50 chars from the right by 'X'
             Console.WriteLine(("").PadLeft( (60 - prev_test_msg.Length) / 2, ' ') + (prev_test_msg) + ("").PadRight( (60-prev_test_msg.Length) / 2, ' '));
             Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 50 chars from the right by 'X'
             Console.WriteLine("\n\n");
             
+            Console.WriteLine("\n\n");
             Console.WriteLine(("").PadRight(60, '+')); //prints nothing, padded 50 chars from the right by '+'
             Console.WriteLine(("").PadLeft( (60 - next_test_msg.Length) / 2, ' ') + (next_test_msg) + ("").PadRight( (60-next_test_msg.Length) / 2, ' '));
             Console.WriteLine(("").PadRight(60, '+')); //prints nothing, padded 50 chars from the right by '+'
-            Console.WriteLine();
+            Console.WriteLine("\n\n");
         }
 
 
