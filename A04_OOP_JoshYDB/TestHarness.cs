@@ -22,7 +22,7 @@ namespace A04_OOP_JoshYDB
         internal void StartTest()
         {
             //using a list of methods to run them in a loop and keep the test harness clean
-            //had the idea and searched it, learned how from: https://stackoverflow.com/questions/23437970/how-to-create-a-list-of-methods-then-execute-them
+            //https://stackoverflow.com/questions/23437970/how-to-create-a-list-of-methods-then-execute-them
             List<Action> tests_to_run = new List<Action>();
             tests_to_run.Add(Test00);
 
@@ -42,6 +42,7 @@ namespace A04_OOP_JoshYDB
                     UserInterface.DenoteNewTest(prev_test_msg:$"FINAL TEST ({test_counter+1}) CONCLUDED");
                 }
             }
+
 
             return;
 
