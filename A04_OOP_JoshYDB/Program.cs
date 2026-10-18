@@ -12,7 +12,8 @@ namespace A04_OOP_JoshYDB
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello, World!");
+            Run initialized_app = new Run();
+            initialized_app.RunApp();
         }
     }
 }

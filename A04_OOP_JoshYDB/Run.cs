@@ -16,6 +16,10 @@ namespace A04_OOP_JoshYDB
      */
     internal class Run
     {
-
+        internal void RunApp()
+        {
+            TestHarness initialized_test = new TestHarness();
+            initialized_test.StartTest();
+        }
     }
 }

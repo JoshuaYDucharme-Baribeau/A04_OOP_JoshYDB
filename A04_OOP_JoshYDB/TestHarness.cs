@@ -19,6 +19,22 @@ namespace A04_OOP_JoshYDB
      */
     internal class TestHarness
     {
+        internal void StartTest()
+        {
+            //begin the first test
+            UserInterface.DenoteNewTest(next_test_msg:"TEST 1 BEGINS:");
 
+
+            
+            
+            UserInterface.DenoteNewTest("TEST 1 CONCLUDED:", "TEST 2 BEGINS");
+
+
+
+
+
+            //final test completed
+            UserInterface.DenoteNewTest(prev_test_msg:"TEST 99 CONCLUDED:");
+        }
     }
 }
