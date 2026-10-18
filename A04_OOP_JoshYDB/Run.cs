@@ -18,6 +18,9 @@ namespace A04_OOP_JoshYDB
     {
         internal void RunApp()
         {
+            //instead of instantiating the test from Program, I do so here so that
+            //when the application is no longer being tested, actual runtime logic would be placed here
+            //future proofing, though not necessary for the assignment
             TestHarness initialized_test = new TestHarness();
             initialized_test.StartTest();
         }
