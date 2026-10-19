@@ -19,6 +19,12 @@ namespace A04_OOP_JoshYDB
         internal void PostTransaction(Transaction a_transaction, AccountLedger accounts)
         {
             Account account = accounts.GetAccountByAccountID(a_transaction.AccountID);
+            //if (accounts.GetAccountByAccountID(a_transaction.AccountID).GetType() == typeof(SavingsAccount))
+            //{
+            //   // SavingsAccount account = accounts.GetAccountByAccountID(a_transaction.AccountID);
+            //   //downcast the object so it can use childclass methods
+               
+            //}
             if (account != null)
             {
                 if (a_transaction.TransactionType == TransactionKind.Deposit)
@@ -29,20 +35,29 @@ namespace A04_OOP_JoshYDB
                     }
                     else
                     {
-                        //throw new InvalidDepositAmountException($"Deposit amount must be greater than zero: {a_transaction.AccountID}: {a_transaction.Amount}");
+                        throw new InvalidDepositAmount($"Deposit amount must be greater than zero: {a_transaction.AccountID}: {a_transaction.Amount:C2}");
 
                     }
                 }
                 else if (a_transaction.TransactionType == TransactionKind.Withdrawal)
                 {
+                    
                     if (account.Balance >= a_transaction.Amount)
                     {
-                        account.Balance -= a_transaction.Amount;
+                        //no problem, next check if it is below the withdraw amount
                     }
                     else
                     {
-                        //throw new InsufficientFundsException("Insufficient funds for withdrawal: {transaction.AccountID}");
+                        throw new InsufficientFunds($"Account \"{a_transaction.AccountID}\" has insufficient funds ({account.Balance:C2}) for withdrawal of ({a_transaction.Amount:C2})");
                     }
+                    if(account is SavingsAccount a_savings_account)
+                    {
+                        if (a_transaction.Amount > a_savings_account.Withdraw_limit)
+                        {
+                            throw new InvalidWthdrawAmount($"The withdrawal limit of ({a_savings_account.Withdraw_limit:C2}) may not be exceeded. Account ID: ({account.AccountID}).");
+                        }
+                    }
+                        account.Balance -= a_transaction.Amount;
                 }
 
                 AddTransaction(a_transaction);

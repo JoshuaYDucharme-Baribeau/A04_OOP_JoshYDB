@@ -49,18 +49,43 @@ namespace A04_OOP_JoshYDB
 
             //begin the first test
             UserInterface.DenoteNewTest(next_test_msg:"TEST 1 BEGINS: Create a savings account");
-            for(int test_counter = 0; test_counter < max_tests; test_counter++)
-            {
-                tests_to_run[test_counter]();
-                if(test_counter < (max_tests-1))
+            for (int test_counter = 0; test_counter < max_tests; test_counter++)
+            { 
+                try
                 {
-                    UserInterface.DenoteNewTest($"TEST {test_counter+1} CONCLUDED", $"TEST {test_counter+2} BEGINS");
+                    tests_to_run[test_counter]();
+                    if (test_counter < (max_tests - 1))
+                    {
+                        UserInterface.DenoteNewTest($"TEST {test_counter + 1} CONCLUDED", $"TEST {test_counter + 2} BEGINS");
+                    }
+                    else
+                    {
+                        //final test completed
+                        UserInterface.DenoteNewTest(prev_test_msg: $"FINAL TEST ({test_counter + 1}) CONCLUDED");
+                    }
                 }
-                else
+                catch (AccountNotFound ex)
                 {
-                    //final test completed
-                    UserInterface.DenoteNewTest(prev_test_msg:$"FINAL TEST ({test_counter+1}) CONCLUDED");
+                    UserInterface.Display_message($"\nError: Account Not Found.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
                 }
+                catch (InsufficientFunds ex)
+                {
+                    UserInterface.Display_message($"\nError: Insufficient Funds.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
+                }
+                catch (InvalidDepositAmount ex)
+                {
+                    UserInterface.Display_message($"\nError: Invalid Deposit Amount.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
+                }
+                catch (InvalidWthdrawAmount ex)
+                {
+                    UserInterface.Display_message($"\nError: Invalid Withdrawal Amount.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
+                }
+
+                catch(Exception ex)
+                {
+                    UserInterface.Display_message($"Oops, an unespected error occurred. Details below.\n\n{ex.Message}\n\n");
+                }
+                
             }
 
             return;
@@ -100,7 +125,7 @@ namespace A04_OOP_JoshYDB
 
             UserInterface.Display_message("Attempting to display a previously and newly added account.");
             UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
-            UserInterface.Display_message(all_accounts.GetAccountByAccountID(1001).ToString());
+            UserInterface.Display_message(all_accounts.GetAccountByAccountID(10014).ToString());
             UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
             UserInterface.Display_message(acct2.ToString());
             UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
@@ -134,7 +159,7 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message("Attempting transactions\n");
             
             UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}\n");
-            Transaction transaction_alpha = new Transaction(1001, TransactionKind.Withdrawal, 75.12m);
+            Transaction transaction_alpha = new Transaction(1001, TransactionKind.Withdrawal, 1050m);
             all_transactions.PostTransaction(transaction_alpha, all_accounts);
             UserInterface.Display_message($"Withdrawal from 1001: {transaction_alpha.ToString()}");
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
