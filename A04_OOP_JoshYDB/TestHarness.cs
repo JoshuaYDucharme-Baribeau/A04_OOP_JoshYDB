@@ -6,6 +6,8 @@
  * DESCRIPTION      : C# Source file for "TestHarness.cs" containing "TestHarness" class.
  *                    This class is maintained to test the implementation of the application
  */
+using System.Security.Principal;
+
 namespace A04_OOP_JoshYDB
 {
     /*
@@ -39,6 +41,7 @@ namespace A04_OOP_JoshYDB
             tests_to_run.Add(() => Test00(all_accounts, all_transactions)); //as I understand it, allows the action to be stored instead of called
             tests_to_run.Add(() => Test01(all_accounts, all_transactions));
             tests_to_run.Add(() => Test02(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test03(all_accounts, all_transactions));
 
             //get the amount of tests that wil run
             int max_tests = tests_to_run.Count; 
@@ -123,6 +126,27 @@ namespace A04_OOP_JoshYDB
                 UserInterface.Display_message(account.ToString());
             }
             UserInterface.Display_message("\n");
+
+        }
+        internal void Test03(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+
+            UserInterface.Display_message("Attempting transactions\n");
+            
+            UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}\n");
+            Transaction transaction_alpha = new Transaction(1001, TransactionKind.Withdrawal, 75.12m);
+            all_transactions.PostTransaction(transaction_alpha, all_accounts);
+            UserInterface.Display_message($"Withdrawal from 1001: {transaction_alpha.ToString()}");
+            UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
+
+            
+            UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
+            Transaction transaction_beta = new Transaction(1002, TransactionKind.Deposit, 1200m);
+            all_transactions.PostTransaction(transaction_beta, all_accounts);
+            UserInterface.Display_message($"Deposit to 1002: {transaction_beta.ToString()}");
+            UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}");
+
+
 
         }
 

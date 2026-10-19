@@ -38,10 +38,10 @@
             this.amount = amount;
         }
 
-        //public override string ToString()
-        //{
-        //    return $"Account ID: {accountID}, Transaction Type: {transactionType}, Amount: {amount:C}";
-        //}
+        public override string ToString()
+        {
+            return $"Account ID: {accountID}, Transaction Type: {transactionType}, Amount: {amount:C}";
+        }
     }
     internal enum TransactionKind
     {
