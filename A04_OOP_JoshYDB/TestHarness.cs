@@ -102,9 +102,6 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message(acct2.ToString());
             UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
 
-            //UserInterface.show_Sav_acct_details(all_accounts.GetSavAccountByAccountID(1001));
-            //UserInterface.show_Sav_acct_details(acct1);
-
         }
 
         internal void Test02(AccountLedger all_accounts, TransactionLedger all_transactions)
@@ -127,9 +124,8 @@ namespace A04_OOP_JoshYDB
             }
             UserInterface.Display_message("\n");
 
-            //UserInterface.show_Sav_acct_details(all_accounts.GetSavAccountByAccountID(1001));
-            //UserInterface.show_Sav_acct_details(acct1);
-
         }
+
+
     }
 }

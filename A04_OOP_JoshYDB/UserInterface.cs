@@ -29,16 +29,7 @@ namespace A04_OOP_JoshYDB
             Console.WriteLine("\n\n");
         }
 
-        //removed as the function was moved to a string override within the account class
-        //internal static void show_acct_details(Account acct_shown)
-        //{
-        //    Console.WriteLine($"Account ID:\t\t{acct_shown.AccountID}");
-        //    Console.WriteLine($"Account Owner:\t{acct_shown.LastName}, {acct_shown.FirstName}");
-        //    Console.WriteLine($"Account Type:\t{acct_shown.AccountType}");
-        //    Console.WriteLine($"Balance:\t\t{acct_shown.Balance}");
-        //}
-        
-        
+
         //consider overriding a toString like the demo example
         //overloaded method for a savings account is unsafe since it is also the parent, changed method name for specifically savings account
         internal static void show_Sav_acct_details(SavingsAccount acct_shown)
