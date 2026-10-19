@@ -16,7 +16,7 @@ namespace A04_OOP_JoshYDB
      *                
      * 
      */
-    internal class Account
+    internal abstract class Account : IComparable<Account>
     {
         private int accountID;
         private AccountKind accountType;
@@ -68,6 +68,23 @@ namespace A04_OOP_JoshYDB
             this.firstName = firstName;
             this.lastName = lastName;
         }
+
+        public abstract override bool Equals(object obj);
+
+
+        //compareto so that the list of accounts can be sorted, even if they aren't Savings Accounts
+        public int CompareTo(Account account)
+        {
+            int result = 1;
+            if (account != null)
+            {
+                //SavingsAccount other_account = (SavingsAccount)account;
+                result = this.AccountID.CompareTo(account.AccountID);
+            }
+            return result;
+            //return this.AccountID.CompareTo(account.AccountID);
+        }
+
 
         //overriding the toString so that it prints account details as follows
         public override string ToString()

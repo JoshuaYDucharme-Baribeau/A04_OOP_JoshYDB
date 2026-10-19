@@ -42,12 +42,13 @@ namespace A04_OOP_JoshYDB
             tests_to_run.Add(() => Test01(all_accounts, all_transactions));
             tests_to_run.Add(() => Test02(all_accounts, all_transactions));
             tests_to_run.Add(() => Test03(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test04(all_accounts, all_transactions));
 
             //get the amount of tests that wil run
             int max_tests = tests_to_run.Count; 
 
 
-            //begin the first test
+            //begin the tests by looping through stored methods
             UserInterface.DenoteNewTest(next_test_msg:"TEST 1 BEGINS: Create a savings account");
             for (int test_counter = 0; test_counter < max_tests; test_counter++)
             { 
@@ -92,6 +93,18 @@ namespace A04_OOP_JoshYDB
 
 
         }
+        /*
+         * TESTS TO ADD
+         * 
+         * One for each exception (4)
+         * 
+         * A test for returning the interest method of a savings account
+         * 
+         * transfer money from one savings account to another
+         * 
+         * method to compare 2 accounts
+         */
+
 
         //need to pass the account and transaction ledgers in order to use them
         internal void Test00(AccountLedger all_accounts, TransactionLedger all_transactions)
@@ -125,7 +138,7 @@ namespace A04_OOP_JoshYDB
 
             UserInterface.Display_message("Attempting to display a previously and newly added account.");
             UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
-            UserInterface.Display_message(all_accounts.GetAccountByAccountID(10014).ToString());
+            UserInterface.Display_message(all_accounts.GetAccountByAccountID(1001).ToString());
             UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
             UserInterface.Display_message(acct2.ToString());
             UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
@@ -172,6 +185,37 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}");
 
 
+
+        }
+
+        internal void Test04(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+            SavingsAccount acct4 = new SavingsAccount();
+            acct4.AccountID = 193;
+            acct4.AccountType = Account.AccountKind.Savings;
+            acct4.Balance = 405.55m;
+            acct4.LastName = "Jimmy";
+            acct4.FirstName = "Page";
+
+            all_accounts.AddAccount(acct4);
+            
+            UserInterface.Display_message("Attempting to sort the accounts by ID\n\nBEFORE SORT");
+            
+            foreach (Account account in all_accounts.GetAllAccounts())
+            {
+                UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
+                UserInterface.Display_message(account.ToString());
+            }
+
+            all_accounts.Sort();
+            UserInterface.Display_message("\nAFTER SORT\n\n");
+
+            foreach (Account account in all_accounts.GetAllAccounts())
+            {
+                UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
+                UserInterface.Display_message(account.ToString());
+            }
+            UserInterface.Display_message("\n");
 
         }
 

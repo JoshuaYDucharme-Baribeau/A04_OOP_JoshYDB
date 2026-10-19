@@ -16,6 +16,12 @@ namespace A04_OOP_JoshYDB
         {
             accounts.Remove(account);
         }
+        //this sort method needs to be added explicitly to the AccountLedger class since it cannot
+        //use the default Sort method of a normally instantiated list.
+        internal void Sort()
+        {
+            accounts.Sort();
+        }
 
         internal Account GetAccountByAccountID(int accountID)
         {

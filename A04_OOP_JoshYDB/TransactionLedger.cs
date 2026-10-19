@@ -19,12 +19,7 @@ namespace A04_OOP_JoshYDB
         internal void PostTransaction(Transaction a_transaction, AccountLedger accounts)
         {
             Account account = accounts.GetAccountByAccountID(a_transaction.AccountID);
-            //if (accounts.GetAccountByAccountID(a_transaction.AccountID).GetType() == typeof(SavingsAccount))
-            //{
-            //   // SavingsAccount account = accounts.GetAccountByAccountID(a_transaction.AccountID);
-            //   //downcast the object so it can use childclass methods
-               
-            //}
+
             if (account != null)
             {
                 if (a_transaction.TransactionType == TransactionKind.Deposit)
@@ -55,6 +50,10 @@ namespace A04_OOP_JoshYDB
                         if (a_transaction.Amount > a_savings_account.Withdraw_limit)
                         {
                             throw new InvalidWthdrawAmount($"The withdrawal limit of ({a_savings_account.Withdraw_limit:C2}) may not be exceeded. Account ID: ({account.AccountID}).");
+                        }
+                        else
+                        {
+                            //no exceptions to throw
                         }
                     }
                         account.Balance -= a_transaction.Amount;

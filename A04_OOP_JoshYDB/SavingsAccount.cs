@@ -16,7 +16,7 @@ namespace A04_OOP_JoshYDB
      *                
      * 
      */
-    internal class SavingsAccount : Account
+    internal class SavingsAccount : Account, IComparable<SavingsAccount>
     {
         private decimal per_annum;
         private decimal withdraw_limit;
@@ -48,6 +48,38 @@ namespace A04_OOP_JoshYDB
             interest_amount = (monthly_low_balance * this.Per_annum) / 12;
             return interest_amount;
         }
+
+        //override the equals in case two identical Savingsaccounts are created and compared
+        public override bool Equals(object obj)
+        {
+            bool result = false;
+            if (obj != null && GetType() == obj.GetType())
+            {
+                Account other_account = (Account)obj;
+                result = (this.AccountType == other_account.AccountType) && (this.AccountID == other_account.AccountID);
+            }
+            return result;
+        }
+
+        //override the hashcode
+        public override int GetHashCode()
+        {
+            return this.GetHashCode();
+        }
+
+        //override the CompareTo so that the list of Savings Accounts can be sorted
+        public int CompareTo(SavingsAccount account)
+        {
+            int result = 1;
+            if (account != null)
+            {
+                //SavingsAccount other_account = (SavingsAccount)account;
+                result = this.AccountID.CompareTo(account.AccountID);
+            }
+            return result;
+            //return this.AccountID.CompareTo(account.AccountID);
+        }
+
 
     }
 
