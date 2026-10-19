@@ -21,24 +21,29 @@ namespace A04_OOP_JoshYDB
     {
         internal void StartTest()
         {
+
+            
+            //instantiate the classes that will manage collections that will be used across all tests
+            //instantiate account ledger, where new accounts will be added
+            AccountLedger all_accounts = new AccountLedger();
+            //instantiate transactionledger, where transactions are stored
+            TransactionLedger all_transactions = new TransactionLedger();
+
             //using a list of methods to run them in a loop and keep the test harness clean
             //had the idea and searched it, learned how from: https://stackoverflow.com/questions/23437970/how-to-create-a-list-of-methods-then-execute-them
             List<Action> tests_to_run = new List<Action>();
+            
+            //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions
             //add all the test methods to the list of Actions (methods) that will be run
-            tests_to_run.Add(Test00);
+            //use a lamda expression to place references to the lists I want as params within the "Action" (method)
+            tests_to_run.Add(() => Test00(all_accounts, all_transactions)); //as I understand it, allows the action to be stored instead of called
+            tests_to_run.Add(() => Test01(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test02(all_accounts, all_transactions));
 
             //get the amount of tests that wil run
             int max_tests = tests_to_run.Count; 
-            
-            //instantiate the classes that will manage collections that will be used across all tests
-                //instantiate account ledger, where new accounts will be added
-            //AccountLedger all_accounts = new AccountLedger();
-
-                //instantiate transactionledger, where transactions are stored
-            //TransactionLedger all_transactions = new TransactionLedger();
 
 
-            
             //begin the first test
             UserInterface.DenoteNewTest(next_test_msg:"TEST 1 BEGINS: Create a savings account");
             for(int test_counter = 0; test_counter < max_tests; test_counter++)
@@ -60,7 +65,8 @@ namespace A04_OOP_JoshYDB
 
         }
 
-        internal void Test00()
+        //need to pass the account and transaction ledgers in order to use them
+        internal void Test00(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
             SavingsAccount acct1 = new SavingsAccount();
             acct1.AccountID = 1001;
@@ -69,12 +75,61 @@ namespace A04_OOP_JoshYDB
             acct1.LastName = "Richards";
             acct1.FirstName = "Keith";
 
-            UserInterface.show_Sav_acct_details(acct1);
+            all_accounts.AddAccount(acct1);
 
+            //UserInterface.show_Sav_acct_details(acct1);
+            UserInterface.Display_message(acct1.ToString());
 
             //
             return;
         }
+        
+        internal void Test01(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+            SavingsAccount acct2 = new SavingsAccount();
+            acct2.AccountID = 1002;
+            acct2.AccountType = Account.AccountKind.Savings;
+            acct2.Balance = 666.66m;
+            acct2.LastName = "Jagger";
+            acct2.FirstName = "Mick";
 
+            all_accounts.AddAccount(acct2);
+
+            UserInterface.Display_message("Attempting to display a previously and newly added account.");
+            UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
+            UserInterface.Display_message(all_accounts.GetAccountByAccountID(1001).ToString());
+            UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
+            UserInterface.Display_message(acct2.ToString());
+            UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
+
+            //UserInterface.show_Sav_acct_details(all_accounts.GetSavAccountByAccountID(1001));
+            //UserInterface.show_Sav_acct_details(acct1);
+
+        }
+
+        internal void Test02(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+            SavingsAccount acct3 = new SavingsAccount();
+            acct3.AccountID = 1003;
+            acct3.AccountType = Account.AccountKind.Savings;
+            acct3.Balance = 10450.01m;
+            acct3.LastName = "Wood";
+            acct3.FirstName = "Ronnie";
+
+            all_accounts.AddAccount(acct3);
+
+            UserInterface.Display_message("Attempting to print all accounts in a loop");
+            
+            foreach(Account account in all_accounts.GetAllAccounts())
+            {
+                UserInterface.Display_message(("").PadRight(60, '-')); //prints nothing, padded 60 chars from the right by '-'
+                UserInterface.Display_message(account.ToString());
+            }
+            UserInterface.Display_message("\n");
+
+            //UserInterface.show_Sav_acct_details(all_accounts.GetSavAccountByAccountID(1001));
+            //UserInterface.show_Sav_acct_details(acct1);
+
+        }
     }
 }

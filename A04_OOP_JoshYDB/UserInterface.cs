@@ -16,27 +16,27 @@ namespace A04_OOP_JoshYDB
         //default param is empty in case the first test was run, second default is if it was the last test
         internal static void DenoteNewTest(string prev_test_msg = "BEGINNING OF TEST HARNESS", string next_test_msg = "END OF TEST HARNESS")
         {
-            Console.WriteLine("\n\n");
-            Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 50 chars from the right by 'X'
+            //Console.WriteLine("\n\n");
+            Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 60 chars from the right by 'X'
             Console.WriteLine(("").PadLeft( (60 - prev_test_msg.Length) / 2, ' ') + (prev_test_msg) + ("").PadRight( (60-prev_test_msg.Length) / 2, ' '));
-            Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 50 chars from the right by 'X'
+            Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 60 chars from the right by 'X'
             Console.WriteLine("\n\n");
             
             Console.WriteLine("\n\n");
-            Console.WriteLine(("").PadRight(60, '+')); //prints nothing, padded 50 chars from the right by '+'
+            Console.WriteLine(("").PadRight(60, '+')); //prints nothing, padded 60 chars from the right by '+'
             Console.WriteLine(("").PadLeft( (60 - next_test_msg.Length) / 2, ' ') + (next_test_msg) + ("").PadRight( (60-next_test_msg.Length) / 2, ' '));
-            Console.WriteLine(("").PadRight(60, '+')); //prints nothing, padded 50 chars from the right by '+'
+            Console.WriteLine(("").PadRight(60, '+')); //prints nothing, padded 60 chars from the right by '+'
             Console.WriteLine("\n\n");
         }
 
-        //consider overriding a toString like the demo example
-        internal static void show_acct_details(Account acct_shown)
-        {
-            Console.WriteLine($"Account ID:\t\t{acct_shown.AccountID}");
-            Console.WriteLine($"Account Owner:\t{acct_shown.LastName}, {acct_shown.FirstName}");
-            Console.WriteLine($"Account Type:\t{acct_shown.AccountType}");
-            Console.WriteLine($"Balance:\t\t{acct_shown.Balance}");
-        }
+        //removed as the function was moved to a string override within the account class
+        //internal static void show_acct_details(Account acct_shown)
+        //{
+        //    Console.WriteLine($"Account ID:\t\t{acct_shown.AccountID}");
+        //    Console.WriteLine($"Account Owner:\t{acct_shown.LastName}, {acct_shown.FirstName}");
+        //    Console.WriteLine($"Account Type:\t{acct_shown.AccountType}");
+        //    Console.WriteLine($"Balance:\t\t{acct_shown.Balance}");
+        //}
         
         
         //consider overriding a toString like the demo example

@@ -69,6 +69,12 @@ namespace A04_OOP_JoshYDB
             this.lastName = lastName;
         }
 
+        //overriding the toString so that it prints account details as follows
+        public override string ToString()
+        {
+            return $"Account ID:\t{AccountID}\nAccount Owner:\t{LastName}, {FirstName}\nAccount Type:\t{AccountType}\nBalance:\t{Balance:C2}";
+        }
+
         //defining kinds of accounts
         internal enum AccountKind
         {
