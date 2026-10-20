@@ -44,6 +44,10 @@ namespace A04_OOP_JoshYDB
             tests_to_run.Add(() => Test03(all_accounts, all_transactions));
             tests_to_run.Add(() => Test04(all_accounts, all_transactions));
             tests_to_run.Add(() => Test05(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test06(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test07(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test08(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test09(all_accounts, all_transactions));
 
             //get the amount of tests that wil run
             int max_tests = tests_to_run.Count; 
@@ -97,9 +101,6 @@ namespace A04_OOP_JoshYDB
 
         /*
          * TESTS TO ADD
-         * 
-         * One for each exception (4)
-         * 
          * transfer money from one savings account to another
          */
 
@@ -235,10 +236,66 @@ namespace A04_OOP_JoshYDB
                 UserInterface.Display_message("\n");
             }
 
-
-
         }
 
+        internal void Test06(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
 
+            UserInterface.Display_message("Attempting to an ACCOUNT NOT FOUND Exception");
+
+            
+            UserInterface.Display_message("\nSearching for Account 999 (which does not exist)\n");
+            UserInterface.Display_message(all_accounts.GetAccountByAccountID(999).ToString());
+            
+            UserInterface.Display_message("\n");
+        }
+
+        internal void Test07(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+            UserInterface.Display_message("Attempting to an INSUFFICIENT FUNDS Exception");
+
+            UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
+            
+            UserInterface.Display_message("\nAttempting a withdrawal of $99999.99.\n");
+            Transaction transaction_alpha = new Transaction(1002, TransactionKind.Withdrawal, 99999.99m);
+                        
+            all_transactions.PostTransaction(transaction_alpha, all_accounts);
+            
+            //will not reach following code due to exception
+            UserInterface.Display_message($"Withdrawal from 1002: {transaction_alpha.ToString()}");
+            UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
+        }
+
+        internal void Test08(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+            UserInterface.Display_message("Attempting to an INVALID DEPOSIT AMOUNT Exception");
+
+            UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
+            
+            UserInterface.Display_message("\nAttempting a deposit of -999.99.\n");
+            Transaction transaction_alpha = new Transaction(1002, TransactionKind.Deposit, -999.99m);
+                        
+            all_transactions.PostTransaction(transaction_alpha, all_accounts);
+            
+            //will not reach following code due to exception
+            UserInterface.Display_message($"Deposit to 1002: {transaction_alpha.ToString()}");
+            UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
+        }
+
+        internal void Test09(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+            UserInterface.Display_message("Attempting to an INVALID WITHDRAW AMOUNT Exception");
+
+            UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
+            
+            UserInterface.Display_message("\nAttempting a withdrawal of $1005.00.\n");
+            Transaction transaction_alpha = new Transaction(1002, TransactionKind.Withdrawal, 1005.00m);
+                        
+            all_transactions.PostTransaction(transaction_alpha, all_accounts);
+            
+            //will not reach following code due to exception
+            UserInterface.Display_message($"Withdrawal from 1002: {transaction_alpha.ToString()}");
+            UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
+        }
     }
 }
