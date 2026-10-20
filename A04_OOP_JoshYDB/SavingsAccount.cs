@@ -6,6 +6,8 @@
  * DESCRIPTION      : C# Source file for "SavingsAccount.cs", a child class of "Account.cs".
  *                    Child class and object/property definition for a "savings account"
  */
+using static A04_OOP_JoshYDB.Account;
+
 namespace A04_OOP_JoshYDB
 {
     /*
@@ -48,6 +50,45 @@ namespace A04_OOP_JoshYDB
             interest_amount = (monthly_low_balance * this.Per_annum) / 12;
             return interest_amount;
         }
+
+        internal void MoneyTransfer(int receiver_account_id, decimal transfer_amount, AccountLedger accounts, TransactionLedger transactions)
+        {
+                        
+            
+            //Transaction transaction_to_post;
+            //Account sender_account = accounts.GetAccountByAccountID(sender_account_id);
+            Account receiver_account = accounts.GetAccountByAccountID(receiver_account_id);
+
+            //a redundant null check, just in case
+            if (this != null)
+            {
+                if(receiver_account != null)
+                {
+                    //remove from sender
+                    Transaction send_transaction = new Transaction(this.AccountID, TransactionKind.Withdrawal, transfer_amount);
+
+                    //deposit to receiver
+                    Transaction receive_transaction = new Transaction(receiver_account_id, TransactionKind.Deposit, transfer_amount);
+
+                    //post both together, in case there is an exception, they either both post or neither post
+                    transactions.PostTransaction(send_transaction, accounts);
+                    transactions.PostTransaction(receive_transaction, accounts);
+                }
+                else
+                {
+                    throw new AccountNotFound($"Account \"{receiver_account_id}\" does not exist or cannot be accessed at this time.");
+                }
+            }
+            else
+            {
+                throw new AccountNotFound($"Account \"{this.AccountID}\" does not exist or cannot be accessed at this time.");
+            }
+
+            return;
+        }
+
+
+
 
         //override the equals in case two identical Savingsaccounts are created and compared
         public override bool Equals(object obj)

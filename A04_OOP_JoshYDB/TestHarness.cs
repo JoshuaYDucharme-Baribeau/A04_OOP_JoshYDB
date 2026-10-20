@@ -48,6 +48,7 @@ namespace A04_OOP_JoshYDB
             tests_to_run.Add(() => Test07(all_accounts, all_transactions));
             tests_to_run.Add(() => Test08(all_accounts, all_transactions));
             tests_to_run.Add(() => Test09(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test10(all_accounts, all_transactions));
 
             //get the amount of tests that wil run
             int max_tests = tests_to_run.Count; 
@@ -172,15 +173,19 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message("Attempting transactions\n");
             
             UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}\n");
+
             Transaction transaction_alpha = new Transaction(1001, TransactionKind.Withdrawal, 97.50m);
             all_transactions.PostTransaction(transaction_alpha, all_accounts);
+            
             UserInterface.Display_message($"Withdrawal from 1001: {transaction_alpha.ToString()}");
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
 
             
             UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
+
             Transaction transaction_beta = new Transaction(1002, TransactionKind.Deposit, 1200m);
             all_transactions.PostTransaction(transaction_beta, all_accounts);
+
             UserInterface.Display_message($"Deposit to 1002: {transaction_beta.ToString()}");
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}");
 
@@ -296,6 +301,39 @@ namespace A04_OOP_JoshYDB
             //will not reach following code due to exception
             UserInterface.Display_message($"Withdrawal from 1002: {transaction_alpha.ToString()}");
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
+        }
+
+        internal void Test10(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+
+
+
+            UserInterface.Display_message
+                (
+                    $"\n\nInitial accounts:" +
+                    $"\n{all_accounts.GetAccountByAccountID(1002).ToString()}" +
+                    $"\n\n{all_accounts.GetAccountByAccountID(193).ToString()}"
+                );
+
+            UserInterface.Display_message($"\n\n1002 TRANSFERS $250 TO 193\n");
+
+            if (all_accounts.GetAccountByAccountID(1002) is SavingsAccount a_savings_account)
+            {
+                a_savings_account.MoneyTransfer(193, 250, all_accounts, all_transactions);
+            }
+            else
+            {
+                UserInterface.Display_message("The specified account is not a savings account able to transfer money.");
+            }
+
+            UserInterface.Display_message
+                (
+                    $"\n\nUpdated accounts:" +
+                    $"\n{all_accounts.GetAccountByAccountID(1002).ToString()}" +
+                    $"\n\n{all_accounts.GetAccountByAccountID(193).ToString()}"
+                );
+
+
         }
     }
 }
