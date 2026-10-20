@@ -4,18 +4,29 @@
  * PROGRAMMER       : Joshua Ducharme-Baribeau
  * FIRST VERSION    : October 10 2026
  * DESCRIPTION      : C# Source file for "Run.cs" containing "Run" class.
- *                    This class is responsible for the main logic of the application
+ *                    This class is responsible for calling the test harness, or otherwise running the application
  */
 namespace A04_OOP_JoshYDB
 {
     /*
      * CLASS        : Run
      * 
-     * DESCRIPTION  : This class is responsible for the main logic of the application
+     * DESCRIPTION  : This class is responsible for calling the test harness, or otherwise running the application
      * 
      */
     internal class Run
     {
+        /*
+         *	METHOD  	: RunApp
+         *	DESCRIPTION	: Simply calls the test harness
+         *  
+         *	
+         *	PARAMETERS	: 
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void RunApp()
         {
             //instead of instantiating the test from Program, I do so here so that

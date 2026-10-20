@@ -1,21 +1,52 @@
-﻿//file header
-using System.Transactions;
-
+﻿/*
+ * FILE             : TransactionLedger.cs
+ * PROJECT          : Assignment 4
+ * PROGRAMMER       : Joshua Ducharme-Baribeau
+ * FIRST VERSION    : October 18 2026
+ * DESCRIPTION      : C# Source file for "TransactionLedger.cs" containing "TransactionLedger" class.
+ *                    This class is responsible for handling the list of and methods related to transaction manipulation
+ */
 namespace A04_OOP_JoshYDB
 {
-    //manages the collection of transactions
-    //called AccountLedger because "Transaction" VS "Transactions" is not distinguishable enough for my taste
+
+   /*
+    * Class  	    :   TransactionLedger
+    * DESCRIPTION	:   manages the collection of transactions
+    *	                called AccountLedger because "Transaction" VS "Transactions" is not distinguishable enough for my taste
+    */
     internal class TransactionLedger
     {
         private List<Transaction> transactions = new List<Transaction>();
 
-
+        /*
+         *	METHOD  	: AddTransaction
+         *	DESCRIPTION	: adds a transaction to the list of transactions
+         *  
+         *	
+         *	PARAMETERS	: Transaction a_transaction : a given transaction to add
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         private void AddTransaction(Transaction a_transaction)
         {
             transactions.Add(a_transaction);
         }
 
-        //applies a transaction to an account based on the kind of transaction
+
+
+        /*
+         *	METHOD  	: PostTransaction
+         *	DESCRIPTION	: applies a transaction to an account based on the kind of transaction
+         *  
+         *	
+         *	PARAMETERS	: Transaction a_transaction     : a transaction to apply to an account
+         *	              AccountLedger all_accounts    : list of accounts
+         *	              
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void PostTransaction(Transaction a_transaction, AccountLedger accounts)
         {
             Account account = accounts.GetAccountByAccountID(a_transaction.AccountID);

@@ -34,16 +34,27 @@ namespace A04_OOP_JoshYDB
             set { withdraw_limit = value; }
         }
 
-
-        
+        //constructor        
         public SavingsAccount()
         {
-            //instead of setting the ammount, per annum could call a method to retrieve the most up to date interest rate from the web/bank
+            //instead of setting the ammount, per annum, one could call a method to retrieve the most up to date interest rate from the web/bank
             per_annum = 0.045m; //4.5% interest rate
             
             withdraw_limit = 1000m; 
         }
 
+
+        /*
+         *	METHOD  	: GetSumMonthOfInterest
+         *	DESCRIPTION	: returns a sum of per-annum interest
+         *  
+         *	
+         *	PARAMETERS	: decimal monthly_low_balance   : a balance with which to calculate the interest (i.e. a principal)
+         *	
+         *	
+         *	
+         *	RETURNS		: decimal interest_amount   : a decimal amount, hopefully a lot, unless it is a loan interest
+         */
         internal decimal GetSumMonthOfInterest(decimal monthly_low_balance)
         {
             decimal interest_amount;
@@ -51,12 +62,23 @@ namespace A04_OOP_JoshYDB
             return interest_amount;
         }
 
+        /*
+         *	METHOD  	: MoneyTransfer
+         *	DESCRIPTION	: A method to facilitate a transfer of funds from "this" savings account to another account
+         *  
+         *	
+         *	PARAMETERS	: int receiver_account_id           : account id of receiving account
+         *	              decimal transfer_amount           : amount to be transferred
+         *	              AccountLedger accounts            : list of accounts
+         *	              TransactionLedger transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void MoneyTransfer(int receiver_account_id, decimal transfer_amount, AccountLedger accounts, TransactionLedger transactions)
         {
-                        
-            
-            //Transaction transaction_to_post;
-            //Account sender_account = accounts.GetAccountByAccountID(sender_account_id);
+
             Account receiver_account = accounts.GetAccountByAccountID(receiver_account_id);
 
             //a redundant null check, just in case
@@ -88,8 +110,6 @@ namespace A04_OOP_JoshYDB
         }
 
 
-
-
         //override the equals in case two identical Savingsaccounts are created and compared
         public override bool Equals(object obj)
         {
@@ -102,7 +122,7 @@ namespace A04_OOP_JoshYDB
             return result;
         }
 
-        //override the hashcode
+        //override the hashcode return
         public override int GetHashCode()
         {
             return this.GetHashCode();
@@ -114,11 +134,9 @@ namespace A04_OOP_JoshYDB
             int result = 1;
             if (account != null)
             {
-                //SavingsAccount other_account = (SavingsAccount)account;
                 result = this.AccountID.CompareTo(account.AccountID);
             }
             return result;
-            //return this.AccountID.CompareTo(account.AccountID);
         }
 
 

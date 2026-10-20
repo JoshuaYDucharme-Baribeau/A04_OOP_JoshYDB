@@ -6,7 +6,6 @@
  * DESCRIPTION      : C# Source file for "TestHarness.cs" containing "TestHarness" class.
  *                    This class is maintained to test the implementation of the application
  */
-using System.Security.Principal;
 
 namespace A04_OOP_JoshYDB
 {
@@ -17,10 +16,23 @@ namespace A04_OOP_JoshYDB
      *                  a. All the properties and methods behave as required
      *                  b. Exceptions work correctly
      *                  c. Account objects can be compared and sorted correctly
+     *                  
+     *                  Uses a loop to iterate through many methods
      * 
      */
     internal class TestHarness
-    {
+    {        
+        /*
+         *	METHOD  	: StartTest
+         *	DESCRIPTION	: Main logic flow for the test harness
+         *  
+         *	
+         *	PARAMETERS	: 
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void StartTest()
         {
 
@@ -38,7 +50,8 @@ namespace A04_OOP_JoshYDB
             //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions
             //add all the test methods to the list of Actions (methods) that will be run
             //use a lamda expression to place references to the lists I want as params within the "Action" (method)
-            tests_to_run.Add(() => Test00(all_accounts, all_transactions)); //as I understand it, allows the action to be stored instead of called
+            //as I understand it, the lambda allows the action(method) to be stored in the list instead instead of called in the statement
+            tests_to_run.Add(() => Test00(all_accounts, all_transactions)); 
             tests_to_run.Add(() => Test01(all_accounts, all_transactions));
             tests_to_run.Add(() => Test02(all_accounts, all_transactions));
             tests_to_run.Add(() => Test03(all_accounts, all_transactions));
@@ -50,7 +63,7 @@ namespace A04_OOP_JoshYDB
             tests_to_run.Add(() => Test09(all_accounts, all_transactions));
             tests_to_run.Add(() => Test10(all_accounts, all_transactions));
 
-            //get the amount of tests that wil run
+            //get the amount of tests that will run
             int max_tests = tests_to_run.Count; 
 
 
@@ -58,8 +71,10 @@ namespace A04_OOP_JoshYDB
             UserInterface.DenoteNewTest(next_test_msg:"TEST 1 BEGINS: Create a savings account");
             for (int test_counter = 0; test_counter < max_tests; test_counter++)
             { 
+                //having the try/cath in the for loop allows the tests to proceed if one of them throws an exception!
                 try
                 {
+                    //call the method at the index of test_counter
                     tests_to_run[test_counter]();
                 }
                 catch (AccountNotFound ex)
@@ -97,16 +112,20 @@ namespace A04_OOP_JoshYDB
 
             return;
 
-
         }
 
         /*
-         * TESTS TO ADD
-         * transfer money from one savings account to another
+         *	METHOD  	: Test00
+         *	DESCRIPTION	: A test for the harness
+         *      adds an account and displays it with the overridden ToString
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
          */
-
-
-        //need to pass the account and transaction ledgers in order to use them
         internal void Test00(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
             SavingsAccount acct1 = new SavingsAccount();
@@ -118,13 +137,24 @@ namespace A04_OOP_JoshYDB
 
             all_accounts.AddAccount(acct1);
 
-            //UserInterface.show_Sav_acct_details(acct1);
             UserInterface.Display_message(acct1.ToString());
 
-            //
+            
             return;
         }
         
+        /*
+         *	METHOD  	: Test01
+         *	DESCRIPTION	: A test for the harness
+         *      adds a SECOND account and displays two accounts at once
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test01(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
             SavingsAccount acct2 = new SavingsAccount();
@@ -145,6 +175,18 @@ namespace A04_OOP_JoshYDB
 
         }
 
+        /*
+         *	METHOD  	: Test02
+         *	DESCRIPTION	: A test for the harness
+         *      adds a THIRD account and displays all accounts in a loop
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test02(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
             SavingsAccount acct3 = new SavingsAccount();
@@ -167,6 +209,19 @@ namespace A04_OOP_JoshYDB
 
         }
 
+
+        /*
+         *	METHOD  	: Test03
+         *	DESCRIPTION	: A test for the harness
+         *      adds a THIRD account and attempts to execute and display a withdrawal and a deposit
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test03(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
 
@@ -191,6 +246,18 @@ namespace A04_OOP_JoshYDB
 
         }
 
+        /*
+         *	METHOD  	: Test04
+         *	DESCRIPTION	: A test for the harness
+         *      adds a FOURTH account and attempts to sort the accounts by ID
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test04(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
             SavingsAccount acct4 = new SavingsAccount();
@@ -222,6 +289,19 @@ namespace A04_OOP_JoshYDB
 
         }
 
+
+        /*
+         *	METHOD  	: Test05
+         *	DESCRIPTION	: A test for the harness
+         *      Attempts to return information about a saving account's interest rate and a per-annum sum based on its balance
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test05(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
             
@@ -243,10 +323,22 @@ namespace A04_OOP_JoshYDB
 
         }
 
+        /*
+         *	METHOD  	: Test06
+         *	DESCRIPTION	: A test for the harness
+         *      Attempts to trigger an ACCOUNT NOT FOUND Exception to display its effects
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test06(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
 
-            UserInterface.Display_message("Attempting to an ACCOUNT NOT FOUND Exception");
+            UserInterface.Display_message("Attempting to trigger an ACCOUNT NOT FOUND Exception");
 
             
             UserInterface.Display_message("\nSearching for Account 999 (which does not exist)\n");
@@ -255,9 +347,22 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message("\n");
         }
 
+
+        /*
+         *	METHOD  	: Test07
+         *	DESCRIPTION	: A test for the harness
+         *      Attempts to trigger an INSUFFICIENT FUNDS Exception to display its effects
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test07(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
-            UserInterface.Display_message("Attempting to an INSUFFICIENT FUNDS Exception");
+            UserInterface.Display_message("Attempting to trigger an INSUFFICIENT FUNDS Exception");
 
             UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
             
@@ -271,9 +376,22 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
         }
 
+
+        /*
+         *	METHOD  	: Test08
+         *	DESCRIPTION	: A test for the harness
+         *      Attempts to trigger an INVALID DEPOSIT AMOUNT Exception to display its effects
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test08(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
-            UserInterface.Display_message("Attempting to an INVALID DEPOSIT AMOUNT Exception");
+            UserInterface.Display_message("Attempting to trigger an INVALID DEPOSIT AMOUNT Exception");
 
             UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
             
@@ -287,9 +405,22 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
         }
 
+
+        /*
+         *	METHOD  	: Test09
+         *	DESCRIPTION	: A test for the harness
+         *      Attempts to trigger an INVALID WITHDRAW AMOUNT Exception to display its effects
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test09(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
-            UserInterface.Display_message("Attempting to an INVALID WITHDRAW AMOUNT Exception");
+            UserInterface.Display_message("Attempting to trigger an INVALID WITHDRAW AMOUNT Exception");
 
             UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}\n");
             
@@ -303,10 +434,22 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
         }
 
+
+        /*
+         *	METHOD  	: Test10
+         *	DESCRIPTION	: A test for the harness
+         *      Attempts to transfer money from one savings account to another
+         *	
+         *	PARAMETERS	: AccountLedger all_accounts            : list of accounts
+         *	              TransactionLedger all_transactions    : list of transactions
+         *	
+         *	
+         *	
+         *	RETURNS		: VOID NOTHING
+         */
         internal void Test10(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
-
-
+            UserInterface.Display_message($"Attempting to transfer from one savings account to another.");
 
             UserInterface.Display_message
                 (
@@ -317,6 +460,7 @@ namespace A04_OOP_JoshYDB
 
             UserInterface.Display_message($"\n\n1002 TRANSFERS $250 TO 193\n");
 
+            //check if it's a savings account first
             if (all_accounts.GetAccountByAccountID(1002) is SavingsAccount a_savings_account)
             {
                 a_savings_account.MoneyTransfer(193, 250, all_accounts, all_transactions);
@@ -332,7 +476,6 @@ namespace A04_OOP_JoshYDB
                     $"\n{all_accounts.GetAccountByAccountID(1002).ToString()}" +
                     $"\n\n{all_accounts.GetAccountByAccountID(193).ToString()}"
                 );
-
 
         }
     }

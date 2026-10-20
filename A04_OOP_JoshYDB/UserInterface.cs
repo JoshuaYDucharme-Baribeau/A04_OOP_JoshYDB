@@ -12,11 +12,23 @@ namespace A04_OOP_JoshYDB
 {
     internal class UserInterface
     {
-        //denotes a new test from the test harness has begun by writing formatted lines in the console
-        //default param is empty in case the first test was run, second default is if it was the last test
+        /*
+         *	METHOD  	: 
+         *	DESCRIPTION	: denotes that a new test from the test harness has begun by writing formatted lines in the console
+         *  
+         *	
+         *	PARAMETERS	: string prev_test_msg  : [OPTIONAL] a message to print indicating the end of the previous test
+         *	              string next_test_msg  : [OPTIONAL] a message to print indicating the beginning of the next test
+         *	
+         *	              first default parameter is for before the first test runs, second default is for when the last test runs
+         *	
+         *	
+         *	
+         *	RETURNS		:
+         */
         internal static void DenoteNewTest(string prev_test_msg = "BEGINNING OF TEST HARNESS", string next_test_msg = "END OF TEST HARNESS")
         {
-            //Console.WriteLine("\n\n");
+            
             Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 60 chars from the right by 'X'
             Console.WriteLine(("").PadLeft( (60 - prev_test_msg.Length) / 2, ' ') + (prev_test_msg) + ("").PadRight( (60-prev_test_msg.Length) / 2, ' '));
             Console.WriteLine(("").PadRight(60, 'X')); //prints nothing, padded 60 chars from the right by 'X'
@@ -27,25 +39,6 @@ namespace A04_OOP_JoshYDB
             Console.WriteLine(("").PadLeft( (60 - next_test_msg.Length) / 2, ' ') + (next_test_msg) + ("").PadRight( (60-next_test_msg.Length) / 2, ' '));
             Console.WriteLine(("").PadRight(60, '+')); //prints nothing, padded 60 chars from the right by '+'
             Console.WriteLine("\n\n");
-        }
-
-
-        //consider overriding a toString like the demo example
-        //overloaded method for a savings account is unsafe since it is also the parent, changed method name for specifically savings account
-        internal static void show_Sav_acct_details(SavingsAccount acct_shown)
-        {
-            Console.WriteLine("\n");
-            Console.WriteLine($"Account ID:\t{acct_shown.AccountID}");
-            Console.WriteLine($"Account Owner:\t{acct_shown.LastName}, {acct_shown.FirstName}");
-            Console.WriteLine($"Account Type:\t{acct_shown.AccountType}");
-            Console.WriteLine($"Balance:\t{acct_shown.Balance}");
-            if (acct_shown is SavingsAccount)
-            {
-                Console.WriteLine($"\tWithdrawal Limit:\t{acct_shown.Withdraw_limit}");
-                Console.WriteLine($"\tInterest rate:\t{acct_shown.Per_annum}");
-            }
-            Console.WriteLine("\n");
-
         }
 
 

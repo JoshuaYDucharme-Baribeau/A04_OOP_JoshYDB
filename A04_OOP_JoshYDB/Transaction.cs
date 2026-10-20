@@ -1,4 +1,13 @@
-﻿namespace A04_OOP_JoshYDB
+﻿/*
+ * FILE             : Transaction.cs
+ * PROJECT          : Assignment 4
+ * PROGRAMMER       : Joshua Ducharme-Baribeau
+ * FIRST VERSION    : October 18 2026
+ * DESCRIPTION      : C# Source file for a custom exception class.
+ *                    Code provided by instructor during demos
+ *                    
+ */
+namespace A04_OOP_JoshYDB
 {
     internal class Transaction
     {
@@ -24,6 +33,7 @@
         }
 
 
+        //constructors
         internal Transaction()
         {
             accountID = 0;
@@ -38,11 +48,25 @@
             this.amount = amount;
         }
 
+
+        /*
+         *	METHOD  	: ToString
+         *	DESCRIPTION	: overriding the toString so that it prints transaction details 
+         *	              as specified instead of just the type of object
+         *  
+         *	
+         *	PARAMETERS	: 
+         *	
+         *	
+         *	
+         *	RETURNS		: a string :)
+         */
         public override string ToString()
         {
             return $"Account ID: {accountID}, Transaction Type: {transactionType}, Amount: {amount:C}";
         }
     }
+    //defining deifferent kinds of transactions
     internal enum TransactionKind
     {
         Deposit,

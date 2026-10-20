@@ -69,10 +69,20 @@ namespace A04_OOP_JoshYDB
             this.lastName = lastName;
         }
 
+        //abstract of equals that will be overriden in child class
         public abstract override bool Equals(object obj);
 
-
-        //compareto so that the list of accounts can be sorted, even if they aren't Savings Accounts
+        /*
+         *	METHOD  	: CompareTo
+         *	DESCRIPTION	: CompareTo method so that the list of accounts can be sorted, even if they aren't Savings Accounts
+         *  
+         *	
+         *	PARAMETERS	: Account account   : a given account to which "this" account should be compared
+         *	
+         *	
+         *	
+         *	RETURNS		: int result:   an integer indicating greater than or less than
+         */
         public int CompareTo(Account account)
         {
             int result = 1;
@@ -84,8 +94,17 @@ namespace A04_OOP_JoshYDB
             return result;
         }
 
-
-        //overriding the toString so that it prints account details as follows
+        /*
+         *	METHOD  	: ToString
+         *	DESCRIPTION	: overriding the toString so that it prints account details as specified instead of just the type of object
+         *  
+         *	
+         *	PARAMETERS	: 
+         *	
+         *	
+         *	
+         *	RETURNS		: a string :)
+         */
         public override string ToString()
         {
             return $"Account ID:\t{AccountID}\nAccount Owner:\t{LastName}, {FirstName}\nAccount Type:\t{AccountType}\nBalance:\t{Balance:C2}";

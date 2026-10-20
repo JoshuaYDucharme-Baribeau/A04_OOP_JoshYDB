@@ -1,9 +1,20 @@
-﻿//header comments
+﻿/*
+ * FILE             : AccountLedger.cs
+ * PROJECT          : Assignment 4
+ * PROGRAMMER       : Joshua Ducharme-Baribeau
+ * FIRST VERSION    : October 18 2026
+ * DESCRIPTION      : C# Source file for "AccountLedger.cs" containing "AccountLedger" class.
+ *                    This class is responsible for handling the list of and methods related to transaction manipulation
+ */
 namespace A04_OOP_JoshYDB
 {
-    //manages the collection of accounts,
-    //called AccountLedger because "Account" VS "Accounts"
-    //is not distinguishable enough for my taste when being refferred to elsewhere in the code
+   /*
+    *	Class  	    :   AccountLedger
+    *	DESCRIPTION	:   manages the collection of accounts,
+    *	                called AccountLedger because "Account" VS "Accounts"
+    *	                is not distinguishable enough for my taste when being 
+    *	                refferred to elsewhere in the code
+    */
     internal class AccountLedger
     {
         private List<Account> accounts = new List<Account>();
@@ -16,13 +27,25 @@ namespace A04_OOP_JoshYDB
         {
             accounts.Remove(account);
         }
+        
         //this sort method needs to be added explicitly to the AccountLedger class since it cannot
-        //use the default Sort method of a normally instantiated list.
+        //use the default Sort method of a normally instantiated list, possibly due to how I instantiate the list/elements.
         internal void Sort()
         {
             accounts.Sort();
         }
 
+        /*
+         *	METHOD  	: GetAccountByAccountID
+         *	DESCRIPTION	: returns an account that matches the parameter ID
+         *  
+         *	
+         *	PARAMETERS	: int accountID : an integer of an account id
+         *	
+         *	
+         *	
+         *	RETURNS		: Account account   : the first account in the list with an id matching the parameter
+         */
         internal Account GetAccountByAccountID(int accountID)
         {
             //allow the account to be null, exception will handle if it is null
@@ -35,6 +58,17 @@ namespace A04_OOP_JoshYDB
             return account;
         }
 
+        /*
+         *	METHOD  	: GetAllAccounts
+         *	DESCRIPTION	: returns the list of accounts
+         *  
+         *	
+         *	PARAMETERS	: 
+         *	
+         *	
+         *	
+         *	RETURNS		: List<Account> accounts    : the list of accounts
+         */
         internal List<Account> GetAllAccounts()
         {
             return accounts;
