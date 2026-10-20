@@ -43,6 +43,7 @@ namespace A04_OOP_JoshYDB
             tests_to_run.Add(() => Test02(all_accounts, all_transactions));
             tests_to_run.Add(() => Test03(all_accounts, all_transactions));
             tests_to_run.Add(() => Test04(all_accounts, all_transactions));
+            tests_to_run.Add(() => Test05(all_accounts, all_transactions));
 
             //get the amount of tests that wil run
             int max_tests = tests_to_run.Count; 
@@ -55,36 +56,36 @@ namespace A04_OOP_JoshYDB
                 try
                 {
                     tests_to_run[test_counter]();
-                    if (test_counter < (max_tests - 1))
-                    {
-                        UserInterface.DenoteNewTest($"TEST {test_counter + 1} CONCLUDED", $"TEST {test_counter + 2} BEGINS");
-                    }
-                    else
-                    {
-                        //final test completed
-                        UserInterface.DenoteNewTest(prev_test_msg: $"FINAL TEST ({test_counter + 1}) CONCLUDED");
-                    }
                 }
                 catch (AccountNotFound ex)
                 {
-                    UserInterface.Display_message($"\nError: Account Not Found.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
+                    UserInterface.Display_message($"\nError: Account Not Found.\n\tDetails: {ex.Message}\nThe operation was not complete.\n\n");
                 }
                 catch (InsufficientFunds ex)
                 {
-                    UserInterface.Display_message($"\nError: Insufficient Funds.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
+                    UserInterface.Display_message($"\nError: Insufficient Funds.\n\tDetails: {ex.Message}\nThe operation was not complete.\n\n");
                 }
                 catch (InvalidDepositAmount ex)
                 {
-                    UserInterface.Display_message($"\nError: Invalid Deposit Amount.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
+                    UserInterface.Display_message($"\nError: Invalid Deposit Amount.\n\tDetails: {ex.Message}\nThe operation was not complete.\n\n");
                 }
                 catch (InvalidWthdrawAmount ex)
                 {
-                    UserInterface.Display_message($"\nError: Invalid Withdrawal Amount.\n\tDetails: {ex.Message}\nThe operation was not complete. Begining next operation:\n\n");
+                    UserInterface.Display_message($"\nError: Invalid Withdrawal Amount.\n\tDetails: {ex.Message}\nThe operation was not complete.\n\n");
                 }
-
                 catch(Exception ex)
                 {
                     UserInterface.Display_message($"Oops, an unespected error occurred. Details below.\n\n{ex.Message}\n\n");
+                }
+
+                if (test_counter < (max_tests - 1))
+                {
+                    UserInterface.DenoteNewTest($"TEST {test_counter + 1} CONCLUDED", $"TEST {test_counter + 2} BEGINS");
+                }
+                else
+                {
+                    //final test completed
+                    UserInterface.DenoteNewTest(prev_test_msg: $"FINAL TEST ({test_counter + 1}) CONCLUDED");
                 }
                 
             }
@@ -93,16 +94,13 @@ namespace A04_OOP_JoshYDB
 
 
         }
+
         /*
          * TESTS TO ADD
          * 
          * One for each exception (4)
          * 
-         * A test for returning the interest method of a savings account
-         * 
          * transfer money from one savings account to another
-         * 
-         * method to compare 2 accounts
          */
 
 
@@ -130,7 +128,7 @@ namespace A04_OOP_JoshYDB
             SavingsAccount acct2 = new SavingsAccount();
             acct2.AccountID = 1002;
             acct2.AccountType = Account.AccountKind.Savings;
-            acct2.Balance = 666.66m;
+            acct2.Balance = 680.96m;
             acct2.LastName = "Jagger";
             acct2.FirstName = "Mick";
 
@@ -166,13 +164,14 @@ namespace A04_OOP_JoshYDB
             UserInterface.Display_message("\n");
 
         }
+
         internal void Test03(AccountLedger all_accounts, TransactionLedger all_transactions)
         {
 
             UserInterface.Display_message("Attempting transactions\n");
             
             UserInterface.Display_message($"\n\nInitial account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}\n");
-            Transaction transaction_alpha = new Transaction(1001, TransactionKind.Withdrawal, 1050m);
+            Transaction transaction_alpha = new Transaction(1001, TransactionKind.Withdrawal, 97.50m);
             all_transactions.PostTransaction(transaction_alpha, all_accounts);
             UserInterface.Display_message($"Withdrawal from 1001: {transaction_alpha.ToString()}");
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1001).ToString()}");
@@ -183,8 +182,6 @@ namespace A04_OOP_JoshYDB
             all_transactions.PostTransaction(transaction_beta, all_accounts);
             UserInterface.Display_message($"Deposit to 1002: {transaction_beta.ToString()}");
             UserInterface.Display_message($"Updated account:\n{all_accounts.GetAccountByAccountID(1002).ToString()}");
-
-
 
         }
 
@@ -216,6 +213,29 @@ namespace A04_OOP_JoshYDB
                 UserInterface.Display_message(account.ToString());
             }
             UserInterface.Display_message("\n");
+
+        }
+
+        internal void Test05(AccountLedger all_accounts, TransactionLedger all_transactions)
+        {
+            
+
+            UserInterface.Display_message("Attempting to get the interest rate of an account");
+
+            if (all_accounts.GetAccountByAccountID(1003) is SavingsAccount a_savings_account)
+            {
+                UserInterface.Display_message($"\n{a_savings_account.ToString()}");
+                UserInterface.Display_message
+                    (
+                        $"\nPer annum interest for Account {a_savings_account.AccountID.ToString()}" +
+                        $"\nCalculated from {a_savings_account.Balance:C2}" +
+                        $"\nat an interest rate of {(a_savings_account.Per_annum)*100}%" +
+                        $"\nInterest sum: {a_savings_account.GetSumMonthOfInterest(a_savings_account.Balance):C2}"
+                    );
+                UserInterface.Display_message("\n");
+            }
+
+
 
         }
 

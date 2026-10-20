@@ -70,23 +70,6 @@ namespace A04_OOP_JoshYDB
 
 
         /*
-         * METHOD       : Display_error_message
-         * 
-         * DESCRIPTION  : displays an informative error message and calls a method to block the program
-         * 
-         * PARAMETERS   : string error_message  : [OPTIONAL] A specific error message that will be displayed. 
-         *              : string message_prompt : [OPTIONAL] [shadows the parameter it passes itself to] A prompt that will be passed to Block_Program when it is called.
-         * 
-         * RETURNS      : NOTHING
-         */
-        internal static void Display_error_message(string error_message = "An error has occurred.", string message_prompt = "Press any key to try again...") //Two default params
-        {
-            Console.WriteLine("\n\n" + error_message);
-            Block_program(message_prompt);
-            return;
-        }
-
-        /*
          * METHOD       : Display_message
          * 
          * DESCRIPTION  : displays a regular message without blocking the program
